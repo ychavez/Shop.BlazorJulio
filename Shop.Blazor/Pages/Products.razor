@@ -1,0 +1,55 @@
+﻿@page "/Products"
+@using Shop.Blazor.Models
+@inject HttpClient httpClient
+
+<h3>Products</h3>
+
+<div class="container">
+    <div class="row">
+
+@foreach (var category in productList.Select(c => c.Category).Distinct())
+{
+    <h2 class="text-success pl-1"><b>@category</b></h2>
+
+
+    @foreach (var product in productList.Where(c => c.Category == category))
+    {
+        <div class="col-lg-4 col-md-6 filter">
+            <div class="card bg-white shadow-sm rounded">
+
+
+                <div class="col-md-4">
+                    <div class="col-8 h5">@product.Name</div>
+                    <span class="text-info h4">
+                        @product.Price.ToString()
+                    </span>
+                </div>
+
+                <img class="card-img-top img-fluid mx-auto mb-3" src="@product.ImageURL" />
+                <div class="col-md-12 pt-2">
+                    <p>@product.Description</p>
+                </div>
+                <div class="col-12 pt-1">
+                    <a href="/details/@product.Id" class="btn btn-dark">Detalles</a>
+                </div>
+            </div>
+
+        </div>
+    }
+
+}
+    </div>
+
+</div>
+
+
+@code {
+    List<Product> productList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        productList = await httpClient
+        .GetFromJsonAsync<List<Product>>("/catalog") ?? new();
+    }
+
+}
