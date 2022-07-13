@@ -1,0 +1,84 @@
+﻿@page "/cart"
+@using Shop.Blazor.Models
+@using Shop.Blazor.Services.Contracts
+@inject IBasketService _basketService
+
+
+
+@if (!basket.Items.Any())
+{
+ <div>
+     Carrito vacio, agregue elementos a su carrito aqui 
+     <a class="btn btn-primary" href="products">Ir a productos</a>
+    </div>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>Carrito</h2>
+            </div>
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in basket.Items)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="@item.ImageURL" alt="@item.ProductName" style="width:100px">
+                                        <p>@item.ProductName</p>
+                                    </td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.Price</td>
+                                    <td>@item.Price</td>
+                                    <td>
+                                        <button class="btn btn-danger" onclick="RemoveItem(@item.ProductId)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12">
+                <h3>Total: @basket.TotalPrice</h3>
+            </div>
+            <div class="col-12">
+                <a class="btn btn-primary" href="products">Ir a productos</a>
+                <a class="btn btn-success" href="checkout">Pagar</a>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    public bool IsProcessing { get; set; } = false;
+    private Basket basket = new();
+
+    private decimal OrderTotal { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        IsProcessing = true;
+        
+        basket = await _basketService.GetBasketAsync("YaelChavez");
+        
+        OrderTotal = basket.TotalPrice;
+        
+        IsProcessing = false;
+    }
+
+}
