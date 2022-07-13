@@ -1,0 +1,91 @@
+﻿@page "/details/{ProductId}"
+@using Shop.Blazor.DTO
+@using Shop.Blazor.Models
+@using Shop.Blazor.Services.Contracts
+@inject IProductService productService
+@inject IBasketService basketService
+
+
+<h3>Details</h3>
+<EditForm OnSubmit="AddToCart" Model="productDetailDTO" method="post">
+    <DataAnnotationsValidator />
+    <div class="card container mt-4">
+        @*header*@
+        <div class="card-header ml-10 row">
+            <div class=" col-12 col-md-6">
+                <h2 class="text-primary">@productDetailDTO.product.Name</h2>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 text-end pt-4">
+            <span class="badge bg-info pt-2" style="height:30px;">
+                @productDetailDTO.product.Category
+            </span>
+
+            <span class="badge bg-warning pt-2" style="height:30px;">
+                @productDetailDTO.product.Summary
+            </span>
+        </div>
+
+        <div class="card-body">
+            <div class="container rounded p-2">
+                <div class="row">
+
+                    <div class="col-6 bg-light text-center">
+                        <img src="@productDetailDTO.product.ImageURL" width="300" class="rounded" />
+                    </div>
+                    <div class="col-2  pt-2  m-2 bg-light text-center" style="border:3px solid #28A745">
+                        <p>@productDetailDTO.product.Price</p>
+                    </div>
+                    <div class="col-2">
+
+                        <p>@((MarkupString)productDetailDTO.product.Description)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-success form-control" href="/">Regresar a inicio</a>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-primary form-control" type="submit">Agregar al carrito</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public string ProductId { get; set; } = null!;
+
+    public ProductDetailDTO productDetailDTO { get; set; } = new();
+
+    private async Task AddToCart()
+    {
+        Basket basket = new();
+        basket.UserName = "YaelChavez";
+        basket.Items = new List<BasketItem>();
+        basket.Items.Add(new BasketItem
+            {
+                ProductId = productDetailDTO.product.Id,
+                Quantity = 1,
+                ProductName = productDetailDTO.product.Name
+                
+            });
+        
+        await basketService.UpdateAsync(basket);
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        productDetailDTO.product = await productService.GetAsync(ProductId);
+    }
+
+}

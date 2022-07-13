@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Shop.Blazor;
+using Shop.Blazor.Services;
+using Shop.Blazor.Services.Contracts;
 
 namespace Company.WebApplication1
 {
@@ -25,7 +27,10 @@ namespace Company.WebApplication1
 
 
             builder.Services.AddScoped(sp =>
-            new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseAddress"]?? "/" )});
+            new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseAddress"] ?? "/") });
+
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IBasketService, BasketService>();
 
             await builder.Build().RunAsync();
         }
