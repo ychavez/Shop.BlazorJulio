@@ -1,11 +1,115 @@
 ﻿@page "/summary"
+@using Shop.Blazor.Models
 @using Shop.Blazor.Services.Contracts
-@inject IProductService _productService
+
+@inject IBasketService _basketService
 
 
-@code {
-    protected override Task OnInitializedAsync()
+
+
+<EditForm OnSubmit="CheckoutHandler" Model="Checkout" method="post">
+    <DataAnnotationsValidator />
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group pt-2">
+
+                <label class="text-black">First Name</label>
+                <InputText @bind-Value="Checkout.FirstName" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.FirstName"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">Address Line</label>
+                <InputText @bind-Value="Checkout.AddressLine" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.AddressLine"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">Card Name</label>
+                <InputText @bind-Value="Checkout.CardName" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.CardName"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">First Name</label>
+                <InputText @bind-Value="Checkout.CardNumber" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.CardName"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                  <label class="text-black">Country</label>
+                <InputText @bind-Value="Checkout.Country" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.Country"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">CVV</label>
+                <InputText @bind-Value="Checkout.CVV" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.CVV"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">Email Address</label>
+                <InputText @bind-Value="Checkout.EmailAddress" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.EmailAddress"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">Expiration</label>
+                <InputText @bind-Value="Checkout.Expiration" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.Expiration"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">First Name</label>
+                <InputText @bind-Value="Checkout.FirstName" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.FirstName"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">Last Name</label>
+                <InputText @bind-Value="Checkout.LastName" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.LastName"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label class="text-black">State</label>
+                <InputText @bind-Value="Checkout.State" type="text" class="form-control" />
+                <ValidationMessage For="()=>Checkout.State"></ValidationMessage>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Basket.Items)
+                    {
+                        <tr>
+                            <td>@item.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Checkout</button>
+</EditForm>
+
+@code
+{
+    private Checkout Checkout { get; set; } = new();
+    private Basket Basket { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
     {
-        return base.OnInitializedAsync();
+        Basket = await _basketService.GetBasketAsync("YaelChavez");
+    }
+
+    private async Task CheckoutHandler()
+    {
+        await _basketService.Checkout(Checkout);
+
     }
 }

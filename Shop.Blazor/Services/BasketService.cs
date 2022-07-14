@@ -14,9 +14,9 @@ namespace Shop.Blazor.Services
             this.httpClient = httpClient;
             this.productService = productService;
         }
-        public Task Checkout()
+        public async Task Checkout(Checkout checkout)
         {
-            throw new NotImplementedException();
+            await httpClient.PostAsJsonAsync("/Basket/Checkout", checkout);
         }
 
         public async Task<Basket> GetBasketAsync(string userName)

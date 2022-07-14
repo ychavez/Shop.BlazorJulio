@@ -6,6 +6,6 @@ namespace Shop.Blazor.Services.Contracts
     {
         Task<Basket> GetBasketAsync(string userName);
         Task UpdateAsync(Basket basket);
-        Task Checkout();
+        Task Checkout(Checkout checkout);
     }
 }

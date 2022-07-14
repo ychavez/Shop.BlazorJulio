@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+<h3>LoginComponent</h3>
+
+<EditForm Model="" OnValidSubmit="" class="form-line">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+
+    <div class="form-group">
+        <label for="name">User Name</label>
+        <InputText id="name" @bind-Value="loginViewModel.UserName" class="form-control"></InputText>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Address</label>
+        <InputText id="password" @bind-Value="loginViewModel.Password" type="password" class="form-control"></InputText>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</EditForm>
+
+@code {
+
+}
