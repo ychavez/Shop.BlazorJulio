@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Blazor", "Shop.Blazor\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Common", "Shop.Common\Shop.Common.csproj", "{139BF641-A08F-4FFD-BE3F-21E991DC97DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Blazor.Admin", "Shop.Blazor.Admin\Shop.Blazor.Admin.csproj", "{1532B86B-74C7-41D0-B729-026594099E35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Blazor.Admin", "Shop.Blazor.Admin\Shop.Blazor.Admin.csproj", "{1532B86B-74C7-41D0-B729-026594099E35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

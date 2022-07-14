@@ -20,14 +20,17 @@
 </EditForm>
 
 @code {
-    private LoginViewModel loginViewModel { get; set; }
 
-   
+    [Parameter]
+    public LoginViewModel loginViewModel { get; set; } = new();
+
+    [Parameter]
+    public EventCallback<bool> LoginAction { get; set; }
+
+
     private async Task LoginHandle()
-    {
-       
+     => await LoginAction.InvokeAsync();
 
-        
-    }
+
 
 }

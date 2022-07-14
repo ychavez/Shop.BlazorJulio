@@ -5,10 +5,10 @@
 @inject IBasketService _basketService
 
 
-
-
-<EditForm OnSubmit="CheckoutHandler" Model="Checkout" method="post">
+<EditForm OnValidSubmit="CheckoutHandler" Model="Checkout" method="post">
     <DataAnnotationsValidator />
+  
+    |
     <div class="row">
         <div class="col-md-6">
             <div class="form-group pt-2">
@@ -68,6 +68,7 @@
                 <ValidationMessage For="()=>Checkout.State"></ValidationMessage>
             </div>
 
+              <ValidationSummary />
         </div>
 
         <div class="col-md-6">

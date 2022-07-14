@@ -8,7 +8,7 @@ namespace Shop.Blazor.Models
         public decimal TotalPrice { get; set; }
 
         // BillingAddress
-        [Required]
+        [Required(ErrorMessage = "Please enter a valid address")]
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
