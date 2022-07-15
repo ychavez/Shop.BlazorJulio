@@ -1,15 +1,18 @@
 ﻿@page "/summary"
+@using Blazored.LocalStorage
 @using Microsoft.AspNetCore.Authorization
 @using Shop.Blazor.Models
 @using Shop.Blazor.Services.Contracts
+@using Shop.Common.Constants
 
+@inject ILocalStorageService localStorageService
 @inject IBasketService _basketService
 @attribute [Authorize]
 
 
 <EditForm OnValidSubmit="CheckoutHandler" Model="Checkout" method="post">
     <DataAnnotationsValidator />
-  
+
 
     <div class="row">
         <div class="col-md-6">
@@ -35,7 +38,7 @@
                 <ValidationMessage For="()=>Checkout.CardName"></ValidationMessage>
             </div>
             <div class="form-group">
-                  <label class="text-black">Country</label>
+                <label class="text-black">Country</label>
                 <InputText @bind-Value="Checkout.Country" type="text" class="form-control" />
                 <ValidationMessage For="()=>Checkout.Country"></ValidationMessage>
             </div>
@@ -70,7 +73,7 @@
                 <ValidationMessage For="()=>Checkout.State"></ValidationMessage>
             </div>
 
-              <ValidationSummary />
+            <ValidationSummary />
         </div>
 
         <div class="col-md-6">
@@ -107,12 +110,12 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Basket = await _basketService.GetBasketAsync("YaelChavez");
+        var userNameTask = localStorageService.GetItemAsStringAsync(MainConstants.UserName);
+        Basket = await _basketService.GetBasketAsync(await userNameTask);
     }
 
     private async Task CheckoutHandler()
     {
         await _basketService.Checkout(Checkout);
-
     }
 }

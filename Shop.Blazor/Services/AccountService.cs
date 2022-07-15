@@ -30,6 +30,7 @@ namespace Shop.Blazor.Services
                     throw new Exception("Error al tratar de comunicarse con el servicio");
 
                 await localStorageService.SetItemAsync(MainConstants.LocalToken, loginDTO.Token);
+                await localStorageService.SetItemAsync(MainConstants.UserName, loginDTO.UserName);
 
                 ((AuthStateProvider)authStateProvider).NotifyLoggedIn(loginDTO.Token);
 

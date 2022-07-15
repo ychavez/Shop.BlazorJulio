@@ -1,8 +1,11 @@
 ﻿@page "/cart"
+@using Blazored.LocalStorage
 @using Microsoft.AspNetCore.Authorization
 @using Shop.Blazor.Models
 @using Shop.Blazor.Services.Contracts
+@using Shop.Common.Constants
 @inject IBasketService _basketService
+@inject ILocalStorageService localStorageService 
 
 @attribute [Authorize]
 
@@ -73,9 +76,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        var userNameTask = localStorageService.GetItemAsStringAsync(MainConstants.UserName)
         IsProcessing = true;
         
-        basket = await _basketService.GetBasketAsync("YaelChavez");
+        basket = await _basketService.
+        GetBasketAsync(await userNameTask);
         
         OrderTotal = basket.TotalPrice;
         
