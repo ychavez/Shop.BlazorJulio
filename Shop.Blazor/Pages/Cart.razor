@@ -1,9 +1,10 @@
 ﻿@page "/cart"
+@using Microsoft.AspNetCore.Authorization
 @using Shop.Blazor.Models
 @using Shop.Blazor.Services.Contracts
 @inject IBasketService _basketService
 
-
+@attribute [Authorize]
 
 @if (!basket.Items.Any())
 {

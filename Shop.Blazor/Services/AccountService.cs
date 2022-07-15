@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Shop.Blazor.DTO;
 using Shop.Blazor.Services.Contracts;
+using Shop.Common.Constants;
 using Shop.Common.ViewModels;
 using System.Net.Http.Json;
 
@@ -28,7 +29,7 @@ namespace Shop.Blazor.Services
                 loginDTO = await postResponse.Content.ReadFromJsonAsync<LoginDTO>() ??
                     throw new Exception("Error al tratar de comunicarse con el servicio");
 
-                await localStorageService.SetItemAsync("JWT Token", loginDTO.Token);
+                await localStorageService.SetItemAsync(MainConstants.LocalToken, loginDTO.Token);
 
                 ((AuthStateProvider)authStateProvider).NotifyLoggedIn(loginDTO.Token);
 

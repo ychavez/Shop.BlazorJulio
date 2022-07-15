@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using Shop.Common.Constants;
 using Shop.Common.Helpers;
 using System.Net.Http.Headers;
 using System.Security.Claims;
@@ -19,7 +20,7 @@ namespace Shop.Blazor.Services
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var token = await localStorageService.GetItemAsync<string>("JWT Token");
+            var token = await localStorageService.GetItemAsync<string>(MainConstants.LocalToken);
             if (token == null)
                 return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
 
