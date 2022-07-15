@@ -1,10 +1,19 @@
-﻿<Router AppAssembly="@typeof(App).Assembly"
-                      AdditionalAssemblies="new[]
+﻿@using Microsoft.AspNetCore.Components.Authorization
+<Router AppAssembly="@typeof(App).Assembly"
+        AdditionalAssemblies="new[]
 {
 typeof(Shop.Common.Components.LoginComponent).Assembly
 }">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <Authorizing>
+                <p>espera mientras se utoriza al usuario</p>
+            </Authorizing>
+            <NotAuthorized>
+                <p>tu no estas autorizado</p>
+            </NotAuthorized>
+
+        </AuthorizeRouteView>
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
     <NotFound>

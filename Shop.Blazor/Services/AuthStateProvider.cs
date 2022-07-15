@@ -26,8 +26,26 @@ namespace Shop.Blazor.Services
             httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("bearer", token);
             return new AuthenticationState(
-                new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJWT(token))));
+                new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJWT(token), "jwtAuthType")));
             
-        } 
+        }
+
+
+        public void NotifyLoggedIn(string token) 
+        {
+            var authenticatedUser =
+                   new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJWT(token)));
+
+            var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
+            NotifyAuthenticationStateChanged(authState);
+        }
+
+        public void NotifyLoggedOut()
+        {
+            var authState = Task.FromResult
+                (new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity())));
+            NotifyAuthenticationStateChanged(authState);
+        }
+
     }
 }

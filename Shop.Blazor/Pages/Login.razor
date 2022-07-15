@@ -1,17 +1,20 @@
-﻿@using Shop.Common.Components
+﻿@page "/login"
+@using Shop.Common.Components
 @using Shop.Common.ViewModels
+@using Shop.Blazor.Services.Contracts
+
+@inject IAccountService accountService
 
 <h3>Login</h3>
 
-<LoginComponent loginViewModel="loginViewModel" LoginAction="login"  ></LoginComponent>
+<LoginComponent loginViewModel="loginViewModel" LoginAction="login"></LoginComponent>
 
 @code {
     public LoginViewModel loginViewModel { get; set; } = new();
 
     public async Task<bool> login()
     {
-
-        return true;
+        return await accountService.Login(loginViewModel);
     }
 
 }
