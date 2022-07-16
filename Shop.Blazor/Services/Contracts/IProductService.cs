@@ -1,4 +1,4 @@
-﻿using Shop.Blazor.Models;
+﻿using Shop.Common.Models;
 
 namespace Shop.Blazor.Services.Contracts
 {

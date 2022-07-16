@@ -9,7 +9,9 @@ namespace Company.WebApplication1
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-           
+
+            builder.Services.AddScoped(sp =>
+            new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseAddress"] ?? "/") });
 
             var app = builder.Build();
 

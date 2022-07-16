@@ -110,8 +110,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var userNameTask = localStorageService.GetItemAsStringAsync(MainConstants.UserName);
-        Basket = await _basketService.GetBasketAsync(await userNameTask);
+        var userNameTask = await localStorageService.GetItemAsync<string>(MainConstants.UserName);
+        Basket = await _basketService.GetBasketAsync(userNameTask);
     }
 
     private async Task CheckoutHandler()

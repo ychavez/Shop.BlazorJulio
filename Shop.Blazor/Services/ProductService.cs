@@ -1,5 +1,5 @@
-﻿using Shop.Blazor.Models;
-using Shop.Blazor.Services.Contracts;
+﻿using Shop.Blazor.Services.Contracts;
+using Shop.Common.Models;
 using System.Net.Http.Json;
 
 namespace Shop.Blazor.Services

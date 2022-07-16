@@ -76,11 +76,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        var userNameTask = localStorageService.GetItemAsStringAsync(MainConstants.UserName)
+        var userNameTask = await localStorageService.GetItemAsync<string>(MainConstants.UserName);
         IsProcessing = true;
         
         basket = await _basketService.
-        GetBasketAsync(await userNameTask);
+        GetBasketAsync( userNameTask);
         
         OrderTotal = basket.TotalPrice;
         

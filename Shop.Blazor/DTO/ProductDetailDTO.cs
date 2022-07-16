@@ -1,4 +1,4 @@
-﻿using Shop.Blazor.Models;
+﻿using Shop.Common.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Blazor.DTO

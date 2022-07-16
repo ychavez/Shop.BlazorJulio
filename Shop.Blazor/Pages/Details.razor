@@ -1,9 +1,12 @@
 ﻿@page "/details/{ProductId}"
+@using Blazored.LocalStorage
 @using Shop.Blazor.DTO
 @using Shop.Blazor.Models
 @using Shop.Blazor.Services.Contracts
+@using Shop.Common.Constants
 @inject IProductService productService
 @inject IBasketService basketService
+@inject ILocalStorageService localStorageService
 
 
 <h3>Details</h3>
@@ -68,8 +71,9 @@
 
     private async Task AddToCart()
     {
+        var userNameTask = await localStorageService.GetItemAsync<string>(MainConstants.UserName);
         Basket basket = new();
-        basket.UserName = "YaelChavez";
+        basket.UserName = userNameTask;
         basket.Items = new List<BasketItem>();
         basket.Items.Add(new BasketItem
             {
