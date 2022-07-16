@@ -15,7 +15,7 @@
 @code {
     public LoginViewModel loginViewModel { get; set; } = new();
 
-    public async Task<bool> login()
+    public async Task login()
     {
 
 
@@ -27,11 +27,10 @@
             if (string.IsNullOrEmpty(ReturnUrl))
                 navigationManager.NavigateTo("/");
             else
-                navigationManager.NavigateTo("/" + ReturnUrl);
-
-            return true;
+                navigationManager.NavigateTo($"/{ReturnUrl}",true);
+        
         }
-        return false;
+       
     }
 
 }

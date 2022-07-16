@@ -25,11 +25,11 @@
     public LoginViewModel loginViewModel { get; set; } = new();
 
     [Parameter]
-    public EventCallback<bool> LoginAction { get; set; }
+    public EventCallback LoginAction { get; set; }
 
 
     private async Task LoginHandle()
-     => await LoginAction.InvokeAsync();
+     =>await  LoginAction.InvokeAsync();
 
 
 

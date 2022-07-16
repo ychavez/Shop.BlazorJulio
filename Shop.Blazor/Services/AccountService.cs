@@ -19,6 +19,15 @@ namespace Shop.Blazor.Services
              => (this.httpClient, this.localStorageService, this.authStateProvider) =
              (httpClient, localStorageService, authStateProvider);
 
+        public async Task Logout() 
+        {
+            await localStorageService.RemoveItemAsync(MainConstants.LocalToken);
+            await localStorageService.RemoveItemAsync(MainConstants.UserName);
+            ((AuthStateProvider)authStateProvider).NotifyLoggedOut();
+
+            httpClient.DefaultRequestHeaders.Authorization = null;
+        }
+
 
         public async Task<bool> Login(LoginViewModel login)
         {

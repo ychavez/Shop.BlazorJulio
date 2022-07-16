@@ -37,6 +37,7 @@ namespace Company.WebApplication1
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddAuthorizationCore();
+           
 
             await builder.Build().RunAsync();
         }
