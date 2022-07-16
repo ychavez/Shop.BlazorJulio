@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Shop.Blazor;
 using Shop.Blazor.Services;
 using Shop.Blazor.Services.Contracts;
+using Sotsera.Blazor.Toaster.Core.Models;
 
 namespace Company.WebApplication1
 {
@@ -37,7 +38,11 @@ namespace Company.WebApplication1
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddAuthorizationCore();
-           
+            builder.Services.AddToaster(config =>
+            {
+                config.PositionClass = Defaults.Classes.Position.TopRight;
+
+            });
 
             await builder.Build().RunAsync();
         }

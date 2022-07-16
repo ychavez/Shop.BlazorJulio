@@ -7,6 +7,8 @@
 @inject IProductService productService
 @inject IBasketService basketService
 @inject ILocalStorageService localStorageService
+@inject Sotsera.Blazor.Toaster.IToaster toaster
+@inject NavigationManager navigationManager
 
 
 <h3>Details</h3>
@@ -71,7 +73,7 @@
 
     private async Task AddToCart()
     {
-        
+
         var userNameTask = await localStorageService.GetItemAsync<string>(MainConstants.UserName);
         Basket basket = new();
         basket.UserName = userNameTask;
@@ -81,12 +83,25 @@
                 ProductId = productDetailDTO.product.Id,
                 Quantity = 1,
                 ProductName = productDetailDTO.product.Name
-                
+
             });
-        
+
+        toaster.Info("Se agrego el producto correctamente!");
+        toaster.Success("Se agrego el producto correctamente!");
+        toaster.Warning("Se agrego el producto correctamente!");
+        toaster.Error("Esto es un error", configure: x =>
+        {
+            x.Onclick = (x) => Redirect();
+        });
+
         await basketService.UpdateAsync(basket);
     }
 
+    async Task Redirect()
+    {
+        navigationManager.NavigateTo("/");
+
+    }
 
     protected override async Task OnInitializedAsync()
     {

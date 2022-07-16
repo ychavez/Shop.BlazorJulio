@@ -1,16 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
+<link href="_content/Sotsera.Blazor.Toaster/toastr.min.css" rel="stylesheet" />
 <Router AppAssembly="@typeof(App).Assembly"
         AdditionalAssemblies="new[]
 {
 typeof(Shop.Common.Components.LoginComponent).Assembly
 }">
+
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
             <Authorizing>
                 <p>espera mientras se utoriza al usuario</p>
             </Authorizing>
             <NotAuthorized>
-               <Shop.Blazor.Pages.RedirectToLogin></Shop.Blazor.Pages.RedirectToLogin>
+                <Shop.Blazor.Pages.RedirectToLogin></Shop.Blazor.Pages.RedirectToLogin>
             </NotAuthorized>
         </AuthorizeRouteView>
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
