@@ -30,5 +30,10 @@ namespace Shop.Blazor.Admin.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task CreateProduct(Product product) 
+        {
+            await httpClient.PostAsJsonAsync("/catalog", product);
+        }
     }
 }

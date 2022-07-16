@@ -1,0 +1,102 @@
+﻿@page "/lifeCycle"
+@using Shop.Blazor.Pages.Components
+
+<h3>LifeCycle</h3>
+
+<p role="status">current count: @currentCount</p>
+
+<div class="border">
+    <LifeCycleComponent ContValue="@currentCount"></LifeCycleComponent>
+</div>
+
+<hr />
+
+@foreach (var item in Details)
+{
+    <input placeholder="@item" type="text"/>
+}
+
+@Count <button @onclick=StartCountDown>iniciar contador</button>
+<hr />
+<hr />
+@foreach (var item in EventType)
+{
+    @item
+    <hr />
+}
+
+
+
+
+@code {
+    private int currentCount = 0;
+    public int Count { get; set; } = 5;
+    List<string> EventType = new();
+    List<string> Details = new()
+    {
+        "Marca",
+        "Color",
+        "Categoria",
+        "Imagen"
+    };
+
+    void StartCountDown()
+    {
+
+        var timer = new Timer(TimerCallBack, null, 1000, 1000);
+    }
+
+    void TimerCallBack(object state)
+    {
+        if (Count > 0)
+        {
+            Count--;
+        }
+    }
+
+    private void incrementCount()
+    {
+
+        Details.Add("otra propiedad");
+        currentCount++;
+    }
+
+    protected override void OnInitialized()
+    {
+        EventType.Add("OnInitialized ha sido llamado");
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventType.Add("OnParametersSet ha sido llamado");
+
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (Details.Any(x=> x =="Imagen"))
+        {
+            
+        }
+        if (firstRender)
+        {
+            currentCount = 111;
+        }
+        else
+        {
+            currentCount = 999;
+        }
+
+        EventType.Add($"OnAfterRender ha sido llamado {firstRender}");
+
+    }
+
+    protected override bool ShouldRender()
+    {
+        EventType.Add("ShouldRender ha sido llamado");
+        return true;
+
+    }
+
+
+}

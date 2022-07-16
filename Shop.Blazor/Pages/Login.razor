@@ -2,6 +2,9 @@
 @using Shop.Common.Components
 @using Shop.Common.ViewModels
 @using Shop.Blazor.Services.Contracts
+@using System.Web
+
+@inject NavigationManager navigationManager
 
 @inject IAccountService accountService
 
@@ -14,8 +17,21 @@
 
     public async Task<bool> login()
     {
-        return await accountService.Login(loginViewModel);
+
+
+        if (await accountService.Login(loginViewModel))
+        {
+            var urlAbsolute = new Uri(navigationManager.Uri);
+            var queryParams = HttpUtility.ParseQueryString(urlAbsolute.Query);
+            var ReturnUrl = queryParams["returnUrl"];
+            if (string.IsNullOrEmpty(ReturnUrl))
+                navigationManager.NavigateTo("/");
+            else
+                navigationManager.NavigateTo("/" + ReturnUrl);
+
+            return true;
+        }
+        return false;
     }
 
 }
- 

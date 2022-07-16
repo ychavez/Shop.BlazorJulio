@@ -10,9 +10,8 @@ typeof(Shop.Common.Components.LoginComponent).Assembly
                 <p>espera mientras se utoriza al usuario</p>
             </Authorizing>
             <NotAuthorized>
-                <p>tu no estas autorizado</p>
+               <Shop.Blazor.Pages.RedirectToLogin></Shop.Blazor.Pages.RedirectToLogin>
             </NotAuthorized>
-
         </AuthorizeRouteView>
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>

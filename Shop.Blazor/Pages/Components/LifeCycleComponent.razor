@@ -1,0 +1,25 @@
+﻿<h3>LifeCycleComponent</h3>
+
+@foreach (var item in EventType)
+{
+    @item
+    <hr />
+}
+
+@code {
+    [Parameter]
+    public int ContValue { get; set; }
+
+    List<string> EventType = new();
+
+    protected override void OnInitialized()
+    {
+        EventType.Add("Hijo- OnInitialized");
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventType.Add("Hijo- OnParametersSet");
+    }
+
+}

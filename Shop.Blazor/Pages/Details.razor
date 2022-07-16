@@ -71,6 +71,7 @@
 
     private async Task AddToCart()
     {
+        
         var userNameTask = await localStorageService.GetItemAsync<string>(MainConstants.UserName);
         Basket basket = new();
         basket.UserName = userNameTask;

@@ -8,6 +8,8 @@ namespace Shop.Blazor.Admin.Services.Contracts
         Task<List<Product>> GetProducts();
         Task<Product> GetProduct(string id);
         Task EditProduct(Product product);
-        
+        Task CreateProduct(Product product);
+
+
     }
 }
